@@ -10,6 +10,10 @@ bot = TeleBot(os.getenv('ADMINS_KEY'))
 def start(m, res=False):
     username = m.from_user.username
     bot.send_message(m.chat.id, f'Добро пожаловать в бот для администраторов {username}')
+    
+@bot.message_handler(commands=['text'])
+def answer(message):
+    bot.send_message(message.chat.id, 'example')
 
 if __name__ == '__main__':
     bot.infinity_polling()
