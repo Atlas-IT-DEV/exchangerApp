@@ -1,15 +1,22 @@
 import { VStack, HStack, Text, Image } from "@chakra-ui/react";
 import ColoredComponent from "./colored_component_wrapper";
 
-const MasterBalance = ({ balance }) => {
+const MasterBalance = ({
+  balance,
+  width='178px',
+  onClick = () => {
+    console.log("hi");
+  },
+}) => {
   return (
     <VStack
-      width={"170px"}
+      width={width}
       background={
         "linear-gradient(216deg, #131315 0%, #000 50.6%, #131315 100%)"
       }
       borderRadius={"14px"}
       padding={"10px"}
+      onClick={onClick}
     >
       <HStack width={"100%"} justify={"space-between"}>
         <Text

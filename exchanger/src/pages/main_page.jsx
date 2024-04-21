@@ -10,8 +10,10 @@ import megafon from "./../assets/images/megafon.svg";
 import { SimpleGrid } from "@chakra-ui/react";
 import BalanceColored from "../components/balance_colored";
 import MasterBalance from "../components/master_balance";
+import { useNavigate } from "react-router";
 
 const Main = () => {
+  const navigate = useNavigate();
   return (
     <VStack width="100%">
       <InfoHeaderMainPage />
@@ -34,16 +36,20 @@ const Main = () => {
         <BlackButtonIcon text={"FAQ"} icon={faq} />
         <BlackButtonIcon text={"ABOUT US"} icon={star} />
       </HStack>
-      <HStack width={"100%"}>
+      <HStack width={"100%"} align={"flex-start"}>
         <VStack>
-          <BalanceColored balance={2} />
-          <MasterBalance balance={0} />
+          <BalanceColored
+            balance={2}
+            onClick={() => navigate("standart_main")}
+          />
+          <MasterBalance balance={0} onClick={() => navigate("master_main")} />
         </VStack>
         <BlackButtonIcon
           text={"CALC INCOME"}
           icon={calc}
           width="170px"
           height="180px"
+          route="calc_income"
         />
       </HStack>
 
@@ -52,6 +58,7 @@ const Main = () => {
         icon={megafon}
         width="100%"
         height="auto"
+        route="/referal_main"
       />
       <BlackButtonIcon text={"UPDATES"} width="100%" height="30vh" />
     </VStack>

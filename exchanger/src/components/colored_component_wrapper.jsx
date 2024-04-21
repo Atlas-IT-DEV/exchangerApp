@@ -1,6 +1,12 @@
 import { VStack } from "@chakra-ui/react";
 
-const ColoredComponent = ({ width, children }) => {
+const ColoredComponent = ({
+  width,
+  height = "auto",
+  padding = "10px",
+  onClick =() => {},
+  children,
+}) => {
   return (
     <VStack
       background={
@@ -8,8 +14,10 @@ const ColoredComponent = ({ width, children }) => {
       }
       borderRadius={"14px"}
       boxShadow={"0 0 4px 0 rgba(0, 255, 255, 0.25)"}
-      padding={"10px"}
+      padding={padding}
       width={width}
+      height={height}
+      onClick={onClick}
     >
       {children}
     </VStack>

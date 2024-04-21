@@ -7,6 +7,7 @@ import { useNavigate } from "react-router";
 
 const InfoHeaderMainPage = () => {
   const navigate = useNavigate();
+  console.log(tg);
   return (
     <HStack width={"100%"} justify={"space-between"}>
       <HStack align={"center"} onClick={() => navigate("/profile")}>
@@ -15,16 +16,14 @@ const InfoHeaderMainPage = () => {
             width={"33px"}
             height={"33px"}
             src={
-              tg.initDataUnsafe.user ? tg.initDataUnsafe.user.photo : no_photo
+              tg.initDataUnsafe?.user?.photo ? tg.initDataUnsafe.user.photo_url : no_photo
             }
           />
         </VStack>
 
         <VStack justify={"flex-start"} spacing={0} padding={0}>
           <Text fontSize={"15px"} color={"white"}>
-            {tg.initDataUnsafe.user
-              ? tg.initDataUnsafe.user.user_name
-              : "Maria"}{" "}
+            {tg.initDataUnsafe?.user?.username ? tg.initDataUnsafe.user.username : "Maria"}{" "}
             {">"}
           </Text>
           <Text

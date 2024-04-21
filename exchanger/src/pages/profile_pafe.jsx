@@ -1,8 +1,19 @@
 import { VStack, HStack, Text, Image, SimpleGrid } from "@chakra-ui/react";
 import no_photo from "./../assets/images/no_photo_user.png";
 import tg from "../tg_vars";
+import ColoredComponent from "../components/colored_component_wrapper";
+import Note from "../components/note";
+import { useNavigate } from "react-router";
 
 const ProfilePage = () => {
+  const navigate = useNavigate();
+  const backButton = tg.BackButton;
+  backButton.show();
+  backButton.onClick(back_page);
+  function back_page() {
+    navigate("/");
+    backButton.hide();
+  }
   return (
     <VStack width={"100%"} spacing={"10px"}>
       <Image
@@ -51,7 +62,12 @@ const ProfilePage = () => {
           </Text>
         </HStack>
       </HStack>
-      <HStack width={"100%"} justify={"space-between"}>
+      <HStack
+        width={"100%"}
+        justify={"space-between"}
+        align={"flex-start"}
+        height={"167px"}
+      >
         <VStack
           borderRadius={"14px"}
           background={
@@ -60,6 +76,7 @@ const ProfilePage = () => {
           width={"200px"}
           align={"center"}
           padding={3}
+          height={"inherit"}
         >
           <HStack width={"100%"} justifyContent={"space-between"}>
             <Text color={"white"} fontSize={9}>
@@ -142,6 +159,8 @@ const ProfilePage = () => {
           width={"200px"}
           align={"center"}
           padding={3}
+          height={"inherit"}
+          justify={"space-between"}
         >
           <HStack width={"100%"} justifyContent={"space-between"}>
             <Text color={"white"} fontSize={9}>
@@ -157,7 +176,7 @@ const ProfilePage = () => {
             </Text>
             <Text
               background={
-                "linear-gradient(135deg, #790016 0%, #5f046f 46.5%, #5103e8 100%)"
+                "linear-gradient(135deg, #7966e3 0%, #4a83bd 46.5%, #11b087 100%)"
               }
               fontSize={9}
               color={"black"}
@@ -173,7 +192,7 @@ const ProfilePage = () => {
             </Text>
             <Text
               background={
-                "linear-gradient(135deg, #790016 0%, #5f046f 46.5%, #5103e8 100%)"
+                "linear-gradient(135deg, #7966e3 0%, #4a83bd 46.5%, #11b087 100%)"
               }
               fontSize={9}
               color={"black"}
@@ -189,7 +208,7 @@ const ProfilePage = () => {
             </Text>
             <Text
               background={
-                "linear-gradient(135deg, #790016 0%, #5f046f 46.5%, #5103e8 100%)"
+                "linear-gradient(135deg, #7966e3 0%, #4a83bd 46.5%, #11b087 100%)"
               }
               fontSize={9}
               color={"black"}
@@ -205,7 +224,7 @@ const ProfilePage = () => {
             </Text>
             <Text
               background={
-                "linear-gradient(135deg, #790016 0%, #5f046f 46.5%, #5103e8 100%)"
+                "linear-gradient(135deg, #7966e3 0%, #4a83bd 46.5%, #11b087 100%)"
               }
               fontSize={9}
               color={"black"}
@@ -217,6 +236,17 @@ const ProfilePage = () => {
           </HStack>
         </VStack>
       </HStack>
+      <ColoredComponent width={"100%"} padding={"30px"}>
+        <Text
+          color={"black"}
+          fontSize={10}
+          alignSelf={"center"}
+          justifySelf={"center"}
+        >
+          TRY STANDART ACCOUNT NOW{" "}
+        </Text>
+      </ColoredComponent>
+      <Note text={"THE MORE POINTS YOU GET, THE HIGHER RANK YOU ATTAIN."} />
     </VStack>
   );
 };

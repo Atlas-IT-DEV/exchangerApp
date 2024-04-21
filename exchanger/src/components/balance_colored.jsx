@@ -2,9 +2,9 @@ import { VStack, HStack, Text, Image } from "@chakra-ui/react";
 import ColoredComponent from "./colored_component_wrapper";
 import usdt_logo from "./../assets/images/usdt_logo.svg";
 
-const BalanceColored = ({ balance }) => {
+const BalanceColored = ({ balance, width = '178px', onClick=() => {} }) => {
   return (
-    <ColoredComponent width={'170px'}>
+    <ColoredComponent width={width} onClick={onClick}>
       <HStack width={"100%"} justify={"space-between"}>
         <Text fontSize={"9px"} color={"black"}>
           BALANCE

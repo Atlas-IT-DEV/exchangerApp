@@ -11,6 +11,7 @@ const BlackButtonIcon = ({
   spacing = "10px",
   route = "/",
   additionalTextIcon = "",
+  predictionalIcon = ''
 }) => {
   const navigate = useNavigate();
   return (
@@ -26,6 +27,7 @@ const BlackButtonIcon = ({
       onClick={() => navigate(route)}
     >
       <HStack width={"100%"} justify={"flex-start"}>
+        {predictionalIcon}
         <Text fontSize={"9px"} color={"white"}>
           {text}
         </Text>
