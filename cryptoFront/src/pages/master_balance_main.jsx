@@ -1,5 +1,5 @@
 import { HStack, VStack } from "@chakra-ui/react";
-import BalanceColored from "../components/balance_colored";
+import MasterBalance from "../components/master_balance";
 import BlackButtonIcon from "../components/black_button_icon";
 import Note from "../components/note";
 import deposit from "./../assets/images/deposit.png";
@@ -7,7 +7,7 @@ import withdraw from "./../assets/images/withdraw.png";
 import { useNavigate } from "react-router";
 import tg from "../tg_vars";
 
-const StandartMain = () => {
+const MasterMain = () => {
   const navigate = useNavigate();
   const backButton = tg.BackButton;
   backButton.show();
@@ -20,12 +20,12 @@ const StandartMain = () => {
     <VStack width={"100%"} spacing={"10px"}>
       <HStack width={"100%"} height={"200px"}>
         <VStack width={"230px"} height={"inherit"} justify={"space-between"}>
-          <BalanceColored balance={0} width="100%" />
+          <MasterBalance balance={0} width="100%" />
           <HStack width={"100%"}>
             <BlackButtonIcon
               text={"DEPOSIT"}
               icon={deposit}
-              route="/st_deposit_1"
+              route="/master_deposit1"
               additionalTextIcon={
                 <svg
                   width="8"
@@ -92,6 +92,7 @@ const StandartMain = () => {
             <BlackButtonIcon
               text={"WITHDRAW"}
               icon={withdraw}
+              route="/master_withdraw1"
               additionalTextIcon={
                 <svg
                   width="8"
@@ -161,15 +162,25 @@ const StandartMain = () => {
           width="100%"
           text={"STATS"}
           height="inherit"
-          route="/standart_stats"
+          route="/master_stats"
         />
       </HStack>
       <Note
-        text={`THIS IS THE STANDARD BALANCE PAGE.
-                HERE YOU ARE ABLE TO GENERATE USDT WITH 0.66%/DAY RATE. ON THIS PAGE YOU CAN MAKE DEPOSITS, GENERATE USDT AND WITHDRAW IT BACK TO YOUR CRYPTO WALLET AT ANY TIME.`}
+        text={`THIS IS THE MASTER BALANCE PAGE.
+        HERE YOU ARE ABLE TO GENERATE MORE USDT THAN IN THE STANDARD BALANCE BY FREEZING YOUR DEPOSIT FOR A CERTAIN PERIOD (1,2 OR 4 MONTHS).
+
+        MODS:
+        X1.25 OF YOUR DEPOSIT (FREEZE FOR 1 MONTH)
+        X1.55 OF YOUR DEPOSIT (FREEZE FOR 2 MONTHS)
+        X2.25 OF YOUR DEPOSIT (FREEZE FOR 4 MONTHS)
+
+        MASTER BALANCE ALLOWS YOU TO GENERATE MORE USDT, BUT BE PREPARED THAT YOUR DEPOSIT WILL NOT BE ABLE TO BE WITHDRAWN UNTIL YOUR CHOSEN FREEZE PERIOD ENDS.
+        ON THIS PAGE YOU CAN CREATE DEPOSITS, GENERATE USDT AND WITHDRAW IT BACK TO YOUR CRYPTO WALLET.
+
+        ALL DEPOSITS YOU CREATE WILL BE DISPLAYED IN THE “WITHDRAW” SECTION.`}
       />
     </VStack>
   );
 };
 
-export default StandartMain;
+export default MasterMain;

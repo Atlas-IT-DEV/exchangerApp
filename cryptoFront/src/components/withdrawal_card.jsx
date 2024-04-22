@@ -1,4 +1,5 @@
 import { VStack, HStack, Text, Button, Input } from "@chakra-ui/react";
+import { useNavigate } from "react-router";
 
 const arrow = (
   <svg
@@ -14,7 +15,8 @@ const arrow = (
     />
   </svg>
 );
-const DepositCard = () => {
+const WithdrawalCard = ({ route = "/", standart = true }) => {
+  const navigate = useNavigate();
   return (
     <VStack
       borderRadius={"14px"}
@@ -25,12 +27,12 @@ const DepositCard = () => {
       background={
         "linear-gradient(216deg, #131315 0%, #000 50.6%, #131315 100%)"
       }
-      justify={'space-between'}
+      justify={"space-between"}
     >
       <HStack width={"100%"} justify={"center"}>
         <HStack alignSelf={"center"} justify={"center"}>
           <Text fontSize={"10px"} color={"white"}>
-            DEPOSIT CARD
+            WITHDRAWAL CARD
           </Text>
           <svg
             width="8"
@@ -39,32 +41,36 @@ const DepositCard = () => {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <circle cx="4" cy="4" r="4" fill="#1EB85B" fill-opacity="0.5" />
-            <circle cx="4" cy="4" r="4" fill="#1EB85B" fill-opacity="0.5" />
-            <circle cx="4" cy="4" r="3" fill="#1EB85B" />
+            <circle cx="4" cy="4" r="4" fill="#B81E1E" fill-opacity="0.5" />
+            <circle cx="4" cy="4" r="3" fill="#B81E1E" />
           </svg>
         </HStack>
       </HStack>
-      <HStack width={"100%"} align={"flex-end"} justify={'space-between'}>
+      <HStack width={"100%"} align={"flex-end"} justify={"space-between"}>
         <VStack>
-          <HStack width={"100%"} justify={"flex-start"}>
-            {arrow}
-            <Text fontSize={"10px"} color={"white"} alignSelf={"center"}>
-              ENTER DEPOSIT AMOUNT
-            </Text>
-          </HStack>
-          <Input
-            placeholder="TYPE HERE"
-            style={{
-              backgroundColor: "black",
-              fontSize: "10px",
+          {standart ? (
+            <>
+              <HStack width={"100%"} justify={"flex-start"}>
+                {arrow}
+                <Text fontSize={"10px"} color={"white"} alignSelf={"center"}>
+                  ENTER WITHDRAW AMOUNT
+                </Text>
+              </HStack>
+              <Input
+                placeholder="TYPE HERE"
+                style={{
+                  backgroundColor: "black",
+                  fontSize: "10px",
 
-              borderRadius: "28px",
-              width: "100%",
-              padding: "5px 20px",
-              color: "white",
-            }}
-          />
+                  borderRadius: "28px",
+                  width: "100%",
+                  padding: "5px 20px",
+                  color: "white",
+                }}
+              />
+            </>
+          ) : null}
+
           <HStack width={"100%"} justify={"flex-start"}>
             {arrow}
             <Text fontSize={"10px"} color={"white"} alignSelf={"center"}>
@@ -88,6 +94,7 @@ const DepositCard = () => {
           borderRadius={"28px"}
           height={"36px"}
           width={"82px"}
+          onClick={() => navigate(route)}
           background={
             "linear-gradient(44deg, #2ab0d0 0%, #9b71d9 66%, #7f7fd7 100%)"
           }
@@ -101,4 +108,4 @@ const DepositCard = () => {
   );
 };
 
-export default DepositCard;
+export default WithdrawalCard;
