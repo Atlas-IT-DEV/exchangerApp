@@ -8,8 +8,8 @@
     "static/media/stars.png": "./static/media/stars.7f603ba6f45843ab656f.png",
     "static/media/usdt_green.svg": "./static/media/usdt_green.f8d695166af831165bd1e939cbbeb9fd.svg",
     "static/media/telegram.svg": "./static/media/telegram.42324c04ca9fb5ddb8b79cdf1eaa1771.svg",
-    "static/media/usdt_logo.svg": "./static/media/usdt_logo.160e6f17fb3c69bbab1f90000545ca40.svg",
     "index.html": "./index.html",
+    "static/media/usdt_logo.svg": "./static/media/usdt_logo.160e6f17fb3c69bbab1f90000545ca40.svg",
     "main.d71f4f1f.js.map": "./static/js/main.d71f4f1f.js.map"
   },
   "entrypoints": [
