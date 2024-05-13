@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 sys.path.insert(0, '')
 import app_logs
 
+# Это для шифрования логов
 # import cryptography
 # from cryptography.fernet import Fernet
 # Generate key
@@ -19,7 +20,7 @@ bot = TeleBot(os.getenv('ADMINS_KEY'))
 logger = app_logs.adminLogger
 
 # fast api url
-BASE_URL = 'http://127.0.0.1:8008'
+BASE_URL = str(os.getenv('FAST_API_URL'))
 
 @bot.message_handler(commands=['start'])
 def start(message, res=False):
@@ -35,10 +36,14 @@ def answer(message):
     
 @bot.message_handler(commands=['hello'])
 def getHello(message):
-    response = requests.get(f"{BASE_URL}/hello")
-    data = response.json()
-    bot.send_message(message.chat.id, data['message'])
+    try:
+        response = requests.get(f"{BASE_URL}/hello")
+        data = response.json()
+        bot.send_message(message.chat.id, data['message'])
+    except Exception:
+        logger.log('error', (f"Error: {Exception}"))
     
+# методы шифрования и дешифрования
 # def encrypt_and_log_data(data):
 #     encrypted_data = cipher_suite.encrypt(data.encode())
 #     print(decrypt_data(encrypted_data))
