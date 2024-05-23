@@ -1,18 +1,20 @@
 {
   "files": {
-    "main.js": "./static/js/main.726e5861.js",
-    "static/media/calc.svg": "./static/media/calc.3619f36fea26033f5018f11bc070979d.svg",
-    "static/media/lamp.svg": "./static/media/lamp.45293750b56497fb73d35b89322875db.svg",
+    "main.js": "./static/js/main.d97c6add.js",
+    "static/media/calc.svg": "./static/media/calc.f96506fcbb6bed6607b4932b29950851.svg",
     "static/media/megafon.svg": "./static/media/megafon.8397133c1a57f412feea90cbb4c0012d.svg",
+    "static/media/stats.svg": "./static/media/stats.601a8a28ded4626f8ddead4146662239.svg",
+    "static/media/smile.JPG": "./static/media/smile.6518f9b9de4fd287c665.JPG",
     "static/media/no_photo_user.png": "./static/media/no_photo_user.bbd33db2aac937eb8262.png",
     "static/media/stars.png": "./static/media/stars.7f603ba6f45843ab656f.png",
+    "static/media/lamp.svg": "./static/media/lamp.9af2e270e0a131a9df48a5fa5e36627c.svg",
     "static/media/usdt_green.svg": "./static/media/usdt_green.f8d695166af831165bd1e939cbbeb9fd.svg",
     "static/media/telegram.svg": "./static/media/telegram.42324c04ca9fb5ddb8b79cdf1eaa1771.svg",
     "index.html": "./index.html",
     "static/media/usdt_logo.svg": "./static/media/usdt_logo.160e6f17fb3c69bbab1f90000545ca40.svg",
-    "main.726e5861.js.map": "./static/js/main.726e5861.js.map"
+    "main.d97c6add.js.map": "./static/js/main.d97c6add.js.map"
   },
   "entrypoints": [
-    "static/js/main.726e5861.js"
+    "static/js/main.d97c6add.js"
   ]
 }
