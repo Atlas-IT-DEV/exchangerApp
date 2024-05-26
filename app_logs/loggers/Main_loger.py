@@ -3,7 +3,7 @@ from logging.handlers import RotatingFileHandler
 
 class MainLogger:
     def __init__(self, log_file):
-        if log_file is "admin_bot.log":
+        if log_file == "admin_bot.log":
             self.logger = logging.getLogger("admin_bot_logger")
         else:
             self.logger = logging.getLogger("user_bot_logger")
