@@ -1,12 +1,13 @@
 {
   "files": {
     "main.css": "./static/css/main.823ab6fe.css",
-    "main.js": "./static/js/main.f7ec977e.js",
+    "main.js": "./static/js/main.47fe5237.js",
     "static/media/calc.svg": "./static/media/calc.f96506fcbb6bed6607b4932b29950851.svg",
+    "static/media/earbuds.svg": "./static/media/earbuds.0f94fd359e584797240e0496ac64a6e4.svg",
+    "static/media/gradient.svg": "./static/media/gradient.d1da4cc88aaa3131db2116aa2b8362a2.svg",
     "static/media/faq.svg": "./static/media/faq.94040092d7078d5f90fa424bc21595e9.svg",
     "static/media/small_star.svg": "./static/media/small_star.516808694f6dd49573610a196321e5ac.svg",
     "static/media/star.svg": "./static/media/star.fe22cc3ad13fca2d4bbaf87633dd5367.svg",
-    "static/media/earbuds.svg": "./static/media/earbuds.8f7107bbe200ea5e267329a098afdcc4.svg",
     "static/media/megafon.svg": "./static/media/megafon.8397133c1a57f412feea90cbb4c0012d.svg",
     "static/media/withdraw.svg": "./static/media/withdraw.c6179ef19bde104102818046991fdd10.svg",
     "static/media/stats.svg": "./static/media/stats.601a8a28ded4626f8ddead4146662239.svg",
@@ -19,10 +20,10 @@
     "index.html": "./index.html",
     "static/media/usdt_logo.svg": "./static/media/usdt_logo.160e6f17fb3c69bbab1f90000545ca40.svg",
     "main.823ab6fe.css.map": "./static/css/main.823ab6fe.css.map",
-    "main.f7ec977e.js.map": "./static/js/main.f7ec977e.js.map"
+    "main.47fe5237.js.map": "./static/js/main.47fe5237.js.map"
   },
   "entrypoints": [
     "static/css/main.823ab6fe.css",
-    "static/js/main.f7ec977e.js"
+    "static/js/main.47fe5237.js"
   ]
 }
