@@ -57,11 +57,11 @@ def getUserList(message):
     try:
         response = requests.get(f"{BASE_URL}/getAllUsers")
         data = response.json()
-        headings = ["Id", "User name", "Count bonuses", "Used referal code"]
+        headings = ["Id", "User name", "Count bonuses", "Used referal code", "Is blocked"]
         body = []
         
         for elem in data:
-            body.append([str(elem['id']), str(elem['user_name']), str(elem['count_bonuses']), str(elem['used_referal_code'])])
+            body.append([str(elem['id']), str(elem['user_name']), str(elem['count_bonuses']), str(elem['used_referal_code']), str(bool(elem['is_blocked']))])
         
         str_answer = 'List of existing users:\n' + f'<pre>{myCreateTableStr(headings, body)}</pre>' + '\n' 
 
@@ -87,7 +87,7 @@ def getUser(message):
         response = requests.get(f"{BASE_URL}/getUser", params=query_params)
         response = response.json()
         
-        data = f"User info:\n TELEGRAMM ID: {response['telegramm_id']}\n USERNAME: {response['user_name']}\n COUNT BONUSES: {response['count_bonuses']}\n USED REFERAL CODE: {response['used_referal_code']}"
+        data = f"User info:\n TELEGRAMM ID: {response['telegramm_id']}\n USERNAME: {response['user_name']}\n COUNT BONUSES: {response['count_bonuses']}\n USED REFERAL CODE: {response['used_referal_code']}\n IS BLOCKED: {response['is_blocked']}"
         
         encrypt_and_log_data(f"User {message.from_user.username} - {message.from_user.id} launched the bot with the command /getUser by name {telegramm_user_name}")
        
@@ -97,6 +97,29 @@ def getUser(message):
             logger.log('error', (f"Error: {e.message}"))
         else:
             logger.log('error', (f"Error: {e}")) 
+       
+
+@bot.message_handler(commands=['blockedOperationUser'])
+def blockedOperationsUser(message):
+    try:
+        request_data = {
+            "telegramm_id": message.text.split(' ')[1],
+            "is_blocked": message.text.split(' ')[2],
+        }
+        
+        response = requests.put(f"{BASE_URL}/blockedAppUser", json=request_data)
+        response = response.json()
+        
+        data = f"User blocked operations was success! Server code {response}"
+        
+        encrypt_and_log_data(f"User {message.from_user.username} - {message.from_user.id} launched the bot with the command /blockedOperationUser with data {request_data}")
+        
+        bot.send_message(message.chat.id, data)
+    except Exception as e:
+        if hasattr(e, 'message'):
+            logger.log('error', (f"Error: {e.message}"))
+        else:
+            logger.log('error', (f"Error: {e}"))       
             
             
 #############################################################################################################
@@ -127,7 +150,7 @@ def getAccountStandartList(message):
 
 
 @bot.message_handler(commands=['getStandartAccount'])
-def getTariff(message):
+def getStandartAccount(message):
     try:
         user_name = message.text.split(' ', 1)[1]
         
@@ -173,7 +196,7 @@ def getAccountMasterList(message):
 
 
 @bot.message_handler(commands=['getMasterAccount'])
-def getTariff(message):
+def getMasterAccount(message):
     try:
         user_name = message.text.split(' ', 1)[1]
         
@@ -246,30 +269,6 @@ def getTariff(message):
             logger.log('error', (f"Error: {e}"))
             
             
-@bot.message_handler(commands=['getTariff'])
-def getTariff(message):
-    try:
-        tariff_id = message.text.split(' ', 1)[1]
-        
-        query_params = {
-            "id": tariff_id
-        }
-        
-        response = requests.get(f"{BASE_URL}/getTariff", params=query_params)
-        response = response.json()
-        
-        data = f"Tariff info:\n ID: {response['id']}\n NAME: {response['name']}\n COEFICIENT: {response['coefficient']}\n MOUNTH PERIOD: {response['mounth_period']}"
-        
-        encrypt_and_log_data(f"User {message.from_user.username} - {message.from_user.id} launched the bot with the command /getTariff by id {tariff_id}")
-        
-        bot.send_message(message.chat.id, data)
-    except Exception as e:
-        if hasattr(e, 'message'):
-            logger.log('error', (f"Error: {e.message}"))
-        else:
-            logger.log('error', (f"Error: {e}"))
-            
-            
 @bot.message_handler(commands=['createTariff'])
 def createTariff(message):
     try:
@@ -294,6 +293,30 @@ def createTariff(message):
         else:
             logger.log('error', (f"Error: {e}"))
  
+@bot.message_handler(commands=['updateTariff'])
+def updateTariff(message):
+    try:
+        request_data = {
+            "id": message.text.split(' ')[1],
+            "name": message.text.split(' ')[2],
+            "coefficient": message.text.split(' ')[3],
+            "mounth_period": message.text.split(' ')[4]
+        }
+        
+        response = requests.put(f"{BASE_URL}/updateTariff", json=request_data)
+        response = response.json()
+        
+        data = f"New tariff was updates success! Server code {response}"
+        
+        encrypt_and_log_data(f"User {message.from_user.username} - {message.from_user.id} launched the bot with the command /updateTariff with data {request_data}")
+        
+        bot.send_message(message.chat.id, data)
+    except Exception as e:
+        if hasattr(e, 'message'):
+            logger.log('error', (f"Error: {e.message}"))
+        else:
+            logger.log('error', (f"Error: {e}"))
+ 
  
 @bot.message_handler(commands=['deleteTariff'])
 def deleteTariff(message):
@@ -304,10 +327,10 @@ def deleteTariff(message):
             "id": tariff_id
         }
         
-        response = requests.get(f"{BASE_URL}/deleteTariff", params=query_params)
+        response = requests.delete(f"{BASE_URL}/deleteTariff", params=query_params)
         response = response.json()
         
-        data = f"Tariff info:\n ID: {response['id']}\n NAME: {response['name']}\n COEFICIENT: {response['coefficient']}\n MOUNTH PERIOD: {response['mounth_period']}"
+        data = f"Tariff by id {tariff_id} was deleted success! Server code {response}"
         
         encrypt_and_log_data(f"User {message.from_user.username} - {message.from_user.id} launched the bot with the command /deleteTariff by id {tariff_id}")
         
