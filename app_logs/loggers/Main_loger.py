@@ -1,9 +1,12 @@
 import logging
 from logging.handlers import RotatingFileHandler
 
-class AdminLogger:
+class MainLogger:
     def __init__(self, log_file):
-        self.logger = logging.getLogger("admin_bot_logger")
+        if log_file == "admin_bot.log":
+            self.logger = logging.getLogger("admin_bot_logger")
+        else:
+            self.logger = logging.getLogger("user_bot_logger")
         self.logger.setLevel(logging.DEBUG)
         formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
         file_handler = logging.FileHandler(log_file)

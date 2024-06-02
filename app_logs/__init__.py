@@ -1,3 +1,5 @@
-from app_logs.loggers.Admin_loger import AdminLogger
+from app_logs.loggers.Main_loger import MainLogger
 
-adminLogger = AdminLogger('admin_bot.log')
+adminLogger = MainLogger('admin_bot.log')
+
+userLogger = MainLogger('user_bot.log')
