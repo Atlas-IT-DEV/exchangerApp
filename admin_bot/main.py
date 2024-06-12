@@ -157,6 +157,7 @@ def getStandartAccount(message):
         query_params = {
             "userName": user_name
         }
+        
         response = requests.get(f"{BASE_URL}/getAccountStandart", params=query_params)
         response = response.json()
         
@@ -340,12 +341,385 @@ def deleteTariff(message):
             logger.log('error', (f"Error: {e.message}"))
         else:
             logger.log('error', (f"Error: {e}"))
-  
+            
+            
+#############################################################################################################
+#                                             REPORT SECTION
+############################################################################################################# 
+
+@bot.message_handler(commands=['report'])
+def getReport(message):
+    try:
+        type_account = message.text.split(' ')[1]
+        user_name = message.text.split(' ')[2]
+        
+        query_params = {
+            "type_account": type_account,
+            "user_name": user_name
+        }
+        
+        response = requests.get(f"{BASE_URL}/getReportAccount", params=query_params)
+        response = response.json()
+        
+        if type_account == 'standart':
+            name_id = 'standart_account_id'
+        else:
+            name_id = 'master_account_id'
+        
+        data = f"Report info:\n ID: {response['id']}\n DEPOSIT SUM: {response['deposit_sum']}\n WITHDRAWAL SUM: {response['withdrawal_sum']}\n PROFIT: {response['profit']}\n ACCOUNT ID: {response[name_id]}"
+        
+        encrypt_and_log_data(f"User {message.from_user.username} - {message.from_user.id} launched the bot with the command /report by type_account {type_account} and user_name {user_name}")
+       
+        bot.send_message(message.chat.id, data)
+    except Exception as e:
+        if hasattr(e, 'message'):
+            logger.log('error', (f"Error: {e.message}"))
+        else:
+            logger.log('error', (f"Error: {e}"))      
+      
+
+#############################################################################################################
+#                                       DEPOSIT VERIFICATION DATA SECTION
+############################################################################################################# 
+
+@bot.message_handler(commands=['De'])
+def deposits(message):
+    try:
+        type_account = message.text.split(' ')[1]
+        
+        query_params = {
+            "type_account": type_account
+        }
+        
+        response = requests.get(f"{BASE_URL}/getAllDeposit", params=query_params)
+        data = response.json()
+        headings = ["Id", "Sum", "Date", "Account id", "Status"]
+        body = []
+        
+        if type_account == 'standart':
+            name_id = 'standart_account_id'
+        else:
+            name_id = 'master_account_id'
+        
+        for elem in data:
+            body.append([str(elem['id']), str(elem['sum']), str(elem['deposit_date']), str(elem[name_id]), str(elem['verification'])])
+        
+        str_answer = f'List of existing deposits by account type {type_account}:\n' + f'<pre>{myCreateTableStr(headings, body)}</pre>' + '\n' 
+
+        bot.send_message(message.chat.id, str_answer, parse_mode='HTML')
+        
+        encrypt_and_log_data(f"User {message.from_user.username} - {message.from_user.id} launched the bot with the command /De by type_account {type_account}")
+    except Exception as e:
+        if hasattr(e, 'message'):
+            logger.log('error', (f"Error: {e.message}"))
+        else:
+            logger.log('error', (f"Error: {e}"))
    
+            
+@bot.message_handler(commands=['DeVer'])
+def depositsVerification(message):
+    try:
+        type_account = message.text.split(' ')[1]
+        
+        query_params = {
+            "type_account": type_account
+        }
+        
+        response = requests.get(f"{BASE_URL}/getAllDepositForVerification", params=query_params)
+        data = response.json()
+        headings = ["Id", "Sum", "Date", "Account id", "Status"]
+        body = []
+        
+        if type_account == 'standart':
+            name_id = 'standart_account_id'
+        else:
+            name_id = 'master_account_id'
+        
+        for elem in data:
+            body.append([str(elem['id']), str(elem['sum']), str(elem['deposit_date']), str(elem[name_id]), str(elem['verification'])])
+        
+        str_answer = f'List of existing deposits for verification by account type {type_account}:\n' + f'<pre>{myCreateTableStr(headings, body)}</pre>' + '\n' 
+
+        bot.send_message(message.chat.id, str_answer, parse_mode='HTML')
+        
+        encrypt_and_log_data(f"User {message.from_user.username} - {message.from_user.id} launched the bot with the command /DeVer by and type_account {type_account}")
+    except Exception as e:
+        if hasattr(e, 'message'):
+            logger.log('error', (f"Error: {e.message}"))
+        else:
+            logger.log('error', (f"Error: {e}"))
+         
+            
+@bot.message_handler(commands=['DeUser'])
+def depositsUser(message):
+    try:
+        user_name = message.text.split(' ')[1]
+        type_account = message.text.split(' ')[2]
+        
+        query_params = {
+            "user_name": user_name,
+            "type_account": type_account
+        }
+        
+        response = requests.get(f"{BASE_URL}/getAllDepositByUserName", params=query_params)
+        data = response.json()
+        headings = ["Id", "Sum", "Date", "Account id", "Status"]
+        body = []
+        
+        if type_account == 'standart':
+            name_id = 'standart_account_id'
+        else:
+            name_id = 'master_account_id'
+        
+        for elem in data:
+            body.append([str(elem['id']), str(elem['sum']), str(elem['deposit_date']), str(elem[name_id]), str(elem['verification'])])
+        
+        str_answer = f'List of existing deposits by user name and account type {type_account}:\n' + f'<pre>{myCreateTableStr(headings, body)}</pre>' + '\n' 
+
+        bot.send_message(message.chat.id, str_answer, parse_mode='HTML')
+        
+        encrypt_and_log_data(f"User {message.from_user.username} - {message.from_user.id} launched the bot with the command /DeUser by user_name {user_name} and type_account {type_account}")
+    except Exception as e:
+        if hasattr(e, 'message'):
+            logger.log('error', (f"Error: {e.message}"))
+        else:
+            logger.log('error', (f"Error: {e}"))
+      
+            
+@bot.message_handler(commands=['DeUserVer'])
+def depositsUserVerification(message):
+    try:
+        user_name = message.text.split(' ')[1]
+        type_account = message.text.split(' ')[2]
+        
+        query_params = {
+            "user_name": user_name,
+            "type_account": type_account
+        }
+        
+        response = requests.get(f"{BASE_URL}/getAllDepositByUserNameForVerification", params=query_params)
+        data = response.json()
+        headings = ["Id", "Sum", "Date", "Account id", "Status"]
+        body = []
+        
+        if type_account == 'standart':
+            name_id = 'standart_account_id'
+        else:
+            name_id = 'master_account_id'
+        
+        for elem in data:
+            body.append([str(elem['id']), str(elem['sum']), str(elem['deposit_date']), str(elem[name_id]), str(elem['verification'])])
+        
+        str_answer = f'List of existing deposits for verification by user name and account type {type_account}:\n' + f'<pre>{myCreateTableStr(headings, body)}</pre>' + '\n' 
+
+        bot.send_message(message.chat.id, str_answer, parse_mode='HTML')
+        
+        encrypt_and_log_data(f"User {message.from_user.username} - {message.from_user.id} launched the bot with the command /DeUserVer by user_name {user_name} and type_account {type_account}")
+    except Exception as e:
+        if hasattr(e, 'message'):
+            logger.log('error', (f"Error: {e.message}"))
+        else:
+            logger.log('error', (f"Error: {e}"))
+
+
+#############################################################################################################
+#                                     WITHDRAWAL VERIFICATION DATA SECTION
+############################################################################################################# 
+
+@bot.message_handler(commands=['Wi'])
+def withdrawals(message):
+    try:
+        type_account = message.text.split(' ')[1]
+        
+        query_params = {
+            "type_account": type_account
+        }
+        
+        response = requests.get(f"{BASE_URL}/getAllWithdrawal", params=query_params)
+        data = response.json()
+        headings = ["Id", "Sum", "Date", "Account id", "Status"]
+        body = []
+        
+        if type_account == 'standart':
+            name_id = 'standart_account_id'
+        else:
+            name_id = 'master_account_id'
+        
+        for elem in data:
+            body.append([str(elem['id']), str(elem['sum']), str(elem['withdrawal_date']), str(elem[name_id]), str(elem['verification'])])
+        
+        str_answer = f'List of existing withdrawals by account type {type_account}:\n' + f'<pre>{myCreateTableStr(headings, body)}</pre>' + '\n' 
+
+        bot.send_message(message.chat.id, str_answer, parse_mode='HTML')
+        
+        encrypt_and_log_data(f"User {message.from_user.username} - {message.from_user.id} launched the bot with the command /Wi by type_account {type_account}")
+    except Exception as e:
+        if hasattr(e, 'message'):
+            logger.log('error', (f"Error: {e.message}"))
+        else:
+            logger.log('error', (f"Error: {e}"))
+   
+            
+@bot.message_handler(commands=['WiVer'])
+def withdrawalsVerification(message):
+    try:
+        type_account = message.text.split(' ')[1]
+        
+        query_params = {
+            "type_account": type_account
+        }
+        
+        response = requests.get(f"{BASE_URL}/getAllWithdrawalForVerification", params=query_params)
+        data = response.json()
+        headings = ["Id", "Sum", "Date", "Account id", "Status"]
+        body = []
+        
+        if type_account == 'standart':
+            name_id = 'standart_account_id'
+        else:
+            name_id = 'master_account_id'
+        
+        for elem in data:
+            body.append([str(elem['id']), str(elem['sum']), str(elem['withdrawal_date']), str(elem[name_id]), str(elem['verification'])])
+        
+        str_answer = f'List of existing withdrawals for verification by account type {type_account}:\n' + f'<pre>{myCreateTableStr(headings, body)}</pre>' + '\n' 
+
+        bot.send_message(message.chat.id, str_answer, parse_mode='HTML')
+        
+        encrypt_and_log_data(f"User {message.from_user.username} - {message.from_user.id} launched the bot with the command /withdrawalsVer by and type_account {type_account}")
+    except Exception as e:
+        if hasattr(e, 'message'):
+            logger.log('error', (f"Error: {e.message}"))
+        else:
+            logger.log('error', (f"Error: {e}"))
+         
+            
+@bot.message_handler(commands=['WiUser'])
+def withdrawalsUser(message):
+    try:
+        user_name = message.text.split(' ')[1]
+        type_account = message.text.split(' ')[2]
+        
+        query_params = {
+            "user_name": user_name,
+            "type_account": type_account
+        }
+        
+        response = requests.get(f"{BASE_URL}/getAllWithdrawalByUserName", params=query_params)
+        data = response.json()
+        headings = ["Id", "Sum", "Date", "Account id", "Status"]
+        body = []
+        
+        if type_account == 'standart':
+            name_id = 'standart_account_id'
+        else:
+            name_id = 'master_account_id'
+        
+        for elem in data:
+            body.append([str(elem['id']), str(elem['sum']), str(elem['withdrawal_date']), str(elem[name_id]), str(elem['verification'])])
+        
+        str_answer = f'List of existing withdrawals by user name and account type {type_account}:\n' + f'<pre>{myCreateTableStr(headings, body)}</pre>' + '\n' 
+
+        bot.send_message(message.chat.id, str_answer, parse_mode='HTML')
+        
+        encrypt_and_log_data(f"User {message.from_user.username} - {message.from_user.id} launched the bot with the command /WiUser by user_name {user_name} and type_account {type_account}")
+    except Exception as e:
+        if hasattr(e, 'message'):
+            logger.log('error', (f"Error: {e.message}"))
+        else:
+            logger.log('error', (f"Error: {e}"))
+      
+            
+@bot.message_handler(commands=['WiUserVer'])
+def withdrawalsUserVerification(message):
+    try:
+        user_name = message.text.split(' ')[1]
+        type_account = message.text.split(' ')[2]
+        
+        query_params = {
+            "user_name": user_name,
+            "type_account": type_account
+        }
+        
+        response = requests.get(f"{BASE_URL}/getAllWithdrawalByUserNameForVerification", params=query_params)
+        data = response.json()
+        headings = ["Id", "Sum", "Date", "Account id", "Status"]
+        body = []
+        
+        if type_account == 'standart':
+            name_id = 'standart_account_id'
+        else:
+            name_id = 'master_account_id'
+        
+        for elem in data:
+            body.append([str(elem['id']), str(elem['sum']), str(elem['withdrawal_date']), str(elem[name_id]), str(elem['verification'])])
+        
+        str_answer = f'List of existing withdrawals for verification by user name and account type {type_account}:\n' + f'<pre>{myCreateTableStr(headings, body)}</pre>' + '\n' 
+
+        bot.send_message(message.chat.id, str_answer, parse_mode='HTML')
+        
+        encrypt_and_log_data(f"User {message.from_user.username} - {message.from_user.id} launched the bot with the command /WiUserVer by user_name {user_name} and type_account {type_account}")
+    except Exception as e:
+        if hasattr(e, 'message'):
+            logger.log('error', (f"Error: {e.message}"))
+        else:
+            logger.log('error', (f"Error: {e}"))
+
+
+#############################################################################################################
+#                                             VERIFICATION SECTION
+############################################################################################################# 
+
+@bot.message_handler(commands=['verDe'])
+def verificationDepositOperation(message):
+    try:
+        request_data = {
+            "record_id": message.text.split(' ')[1],
+            "type_account": message.text.split(' ')[2]
+        }
+        
+        response = requests.put(f"{BASE_URL}/verificationDepositOperation", json=request_data)
+        response = response.json()
+        
+        data = f"Deposit was verifacated success! Server code {response}"
+        
+        encrypt_and_log_data(f"User {message.from_user.username} - {message.from_user.id} launched the bot with the command /verDe with data {request_data}")
+        
+        bot.send_message(message.chat.id, data)
+    except Exception as e:
+        if hasattr(e, 'message'):
+            logger.log('error', (f"Error: {e.message}"))
+        else:
+            logger.log('error', (f"Error: {e}"))
+            
+            
+@bot.message_handler(commands=['verWi'])
+def verificationWithdrawalOperation(message):
+    try:
+        request_data = {
+            "record_id": message.text.split(' ')[1],
+            "type_account": message.text.split(' ')[2]
+        }
+        
+        response = requests.put(f"{BASE_URL}/verificationWithdrawalOperation", json=request_data)
+        response = response.json()
+        
+        data = f"Withdrawal was verifacated success! Server code {response}"
+        
+        encrypt_and_log_data(f"User {message.from_user.username} - {message.from_user.id} launched the bot with the command /verWi with data {request_data}")
+        
+        bot.send_message(message.chat.id, data)
+    except Exception as e:
+        if hasattr(e, 'message'):
+            logger.log('error', (f"Error: {e.message}"))
+        else:
+            logger.log('error', (f"Error: {e}"))
+
+
 #############################################################################################################
 #                                             FUNCTIONS SECTION
 ############################################################################################################# 
-        
+     
 # вывод таблицы с колонками максимальной длинны строки каждого столбца 
 def myCreateTableStr(headings, body):
     total_str_table = "\n"
