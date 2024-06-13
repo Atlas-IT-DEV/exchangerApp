@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "./static/css/main.823ab6fe.css",
-    "main.js": "./static/js/main.47fe5237.js",
+    "main.css": "./static/css/main.2927edb6.css",
+    "main.js": "./static/js/main.ed39fc3f.js",
     "static/media/calc.svg": "./static/media/calc.f96506fcbb6bed6607b4932b29950851.svg",
     "static/media/earbuds.svg": "./static/media/earbuds.0f94fd359e584797240e0496ac64a6e4.svg",
     "static/media/gradient.svg": "./static/media/gradient.d1da4cc88aaa3131db2116aa2b8362a2.svg",
@@ -19,11 +19,11 @@
     "static/media/telegram.svg": "./static/media/telegram.42324c04ca9fb5ddb8b79cdf1eaa1771.svg",
     "index.html": "./index.html",
     "static/media/usdt_logo.svg": "./static/media/usdt_logo.160e6f17fb3c69bbab1f90000545ca40.svg",
-    "main.823ab6fe.css.map": "./static/css/main.823ab6fe.css.map",
-    "main.47fe5237.js.map": "./static/js/main.47fe5237.js.map"
+    "main.2927edb6.css.map": "./static/css/main.2927edb6.css.map",
+    "main.ed39fc3f.js.map": "./static/js/main.ed39fc3f.js.map"
   },
   "entrypoints": [
-    "static/css/main.823ab6fe.css",
-    "static/js/main.47fe5237.js"
+    "static/css/main.2927edb6.css",
+    "static/js/main.ed39fc3f.js"
   ]
 }
